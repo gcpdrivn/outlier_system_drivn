@@ -72,9 +72,9 @@ function BandPanel({ band, metricKey, metricLabel, unit, centre, point }) {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap', gap: 8 }}>
         <div style={{ fontSize: 17, fontWeight: 800 }}>{band.label} <span style={{ fontSize: 12, color: MUTED, fontWeight: 500 }}>km</span></div>
         <div style={{ display: 'flex', gap: 16 }}>
-          <Stat label="Trips" value={fmt(band.trips)} />
+          <Stat label="Trips/day" value={fmt(band.avgTripsPerDay)} />
           <Stat label="Avg occ" value={band.avgOccupancy + '%'} />
-          <Stat label="Total km" value={fmt(band.kms)} />
+          <Stat label="Avg km" value={fmt(band.avgKm)} />
         </div>
       </div>
 
