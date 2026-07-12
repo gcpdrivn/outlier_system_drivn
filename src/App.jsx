@@ -107,14 +107,13 @@ function BandPanel({ band, metricKey, metricLabel, unit, centre, point }) {
       </ResponsiveContainer>
       {hist.clipped && <div style={{ fontSize: 10, color: MUTED, marginTop: -6 }}>Axis clipped at p97 — max {u(m.quantiles[100])} (long upper tail).</div>}
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: 8, paddingTop: 6, borderTop: '1px solid var(--border)' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: 8, paddingTop: 6, borderTop: '1px solid var(--border)' }}>
         <Stat label="p25" value={u(m.p25)} />
         <Stat label="p50" value={u(m.p50)} />
         <Stat label="p75" value={u(m.p75)} />
         <Stat label="p90" value={u(m.p90)} />
         <Stat label="Mean" value={u(m.mean)} accent={ACCENT} />
         <Stat label="Std dev" value={u(m.std)} />
-        <Stat label="n" value={fmt(m.count)} />
       </div>
       {point != null && Number.isFinite(point) && (
         <div style={{ fontSize: 13, padding: '6px 10px', borderRadius: 6, background: rank >= 50 ? 'rgba(217,119,6,0.08)' : 'rgba(59,130,246,0.08)', color: rank >= 50 ? UPPER : LOWER, fontWeight: 600 }}>
