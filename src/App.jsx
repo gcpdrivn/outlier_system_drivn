@@ -126,7 +126,7 @@ function BandPanel({ band, metricKey, metricLabel, unit, centre, point }) {
   )
 }
 
-export default function App() {
+export default function App({ user, logout }) {
   const [metric, setMetric] = useState('rev_per_km')
   const [bandsStr, setBandsStr] = useState('250,500,750')
   const [route, setRoute] = useState('')
@@ -163,9 +163,13 @@ export default function App() {
 
   return (
     <div style={{ minHeight: '100vh' }}>
-      <header style={{ padding: '14px 24px', borderBottom: '1px solid var(--border)', background: 'var(--surface)', display: 'flex', alignItems: 'baseline', gap: 12 }}>
+      <header style={{ padding: '14px 24px', borderBottom: '1px solid var(--border)', background: 'var(--surface)', display: 'flex', alignItems: 'center', gap: 12 }}>
         <span style={{ fontSize: 20, fontWeight: 900, letterSpacing: '0.06em' }}>DRIVN</span>
         <span style={{ fontSize: 15, color: MUTED }}>Outlier / Distribution Analysis</span>
+        <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 10 }}>
+          <span style={{ fontSize: 13, color: MUTED }}>{user?.name || user?.email}</span>
+          <button onClick={logout} style={{ padding: '5px 12px', fontSize: 13, fontWeight: 600, borderRadius: 5, border: '1px solid var(--border-strong)', background: 'var(--surface)', cursor: 'pointer' }}>Sign out</button>
+        </div>
       </header>
 
       {/* Controls */}
