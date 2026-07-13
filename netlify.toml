@@ -1,0 +1,39 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# The outlier app shares the central drivn-server (Cloud Run). Proxy /api/* AND
+# /auth/* so the browser only ever calls same-origin (no CORS; the session cookie
+# is set on THIS site's origin). Both MUST precede the SPA fallback below.
+# TODO: after deploying drivn-server to Cloud Run, replace the host in BOTH rules:
+#   gcloud run services describe drivn-server --region <region> --format 'value(status.url)'
+[[redirects]]
+  from = "/api/*"
+  to = "https://drivn-server-REPLACE.a.run.app/api/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/auth/*"
+  to = "https://drivn-server-REPLACE.a.run.app/auth/:splat"
+  status = 200
+  force = true
+
+# SPA fallback — everything else serves the built index.html.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "no-cache"
